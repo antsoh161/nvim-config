@@ -16,7 +16,75 @@ end
 dap_install.setup({})
 
 dap_install.config("python", {})
+dap_install.config("ccppr_vsc", {})
+
+dap.adapters.cppdbg = {
+  id = 'cppdbg',
+  type = 'executable',
+  command = '/home/anton/.local/share/nvim/mason/bin/OpenDebugAD7'
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "cppdbg",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopAtEntry = false,
+  },
+  {
+    name = 'Attach on gdbserver :1234',
+    type = 'cppdbg',
+    request = 'launch',
+    MIMode = 'gdb',
+    miDebuggerServerAddress = 'localhost:1234',
+    miDebuggerPath = '/usr/bin/gdb',
+    cwd = '${workspaceFolder}',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+  }, 
+}
+
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
+
+-- This shit does not work
+--
+-- dap_install.config(
+--   "cppdbg",
+--   {
+--     adapters = {
+--       id = 'cppdbg',
+--       type = "executable",
+--       command = "~/.local/share/nvim/mason/bin/OpenDebugAD7",
+--     },
+--     configuration = {
+--       type = "cppdbg",
+--       request = "launch",
+--       name = "Default launch (vscpptools)",
+--       program = function()
+--         local prompt = 'Enter the path to the executable: '
+--         return vim.fn.input(prompt, vim.fn.getcwd(), "file")
+--       end,
+--       MIMode = "gdb",
+--       miDebuggerPath =  "/usr/bin/gdb",
+--       cwd = vim.fn.getcwd(),
+--       stopOnEntry = false,
+--       setupCommands = {
+--         description = 'enable pretty printing',
+--         text = '-enable-pretty-printing',
+--         ignoreFailures = true
+--       },
+--
+--     }
+--   }
+-- )
 -- add other configs here
+
 
 dapui.setup({
 	expand_lines = true,
