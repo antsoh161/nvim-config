@@ -43,8 +43,11 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
 -- Close buffers
-keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
+keymap("n", "<S-q>", "<cmd>Bdelete<CR>", opts)
 
+-- Close Window
+keymap("n", "<C-q>", ":close<CR>", opts)
+--
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
@@ -64,7 +67,15 @@ keymap("n", "<leader>ee", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<leader>ef", ":NvimTreeFocus<CR>", opts)
 
 -- toggleterm
+-- press 'a' to jump back to insert mode in terminal
 keymap("n", "<leader>tf", ":ToggleTerm<CR>", opts)
+
+-- scope / tabs
+-- tabnext is toggle right, tabNext is toggle left (nice naming choice)
+keymap("n", "<leader>tt", ":tabnew<CR>", opts)
+keymap("n", "<leader>tc", ":tabclose<CR>", opts)
+keymap("n", "<leader>tl", ":tabnext<CR>", opts)
+keymap("n", "<leader>th", ":tabNext<CR>", opts)
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
