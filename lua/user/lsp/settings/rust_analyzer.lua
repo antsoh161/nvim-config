@@ -1,4 +1,3 @@
-
 return {
   settings = {
     ["rust_analyzer"] = {
@@ -15,6 +14,13 @@ return {
       },
       procMacro = {
         enable = true
+      },
+      inlayHints = {
+        enable = true,
+        auto = true,
+        show_parameter_hints = true,
+        parameter_hints_prefix = "",
+        other_hints_prefix ="",
       },
     },
   },
