@@ -9,7 +9,7 @@ local servers = {
 	"yamlls",
   "clangd",
   "rust_analyzer",
-  "cmake-language-server",
+  "neocmake",
 }
 
 local settings = {
