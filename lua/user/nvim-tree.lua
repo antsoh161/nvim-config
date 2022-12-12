@@ -10,13 +10,19 @@ end
 
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
+local my_root_folder_label = function(path)
+          return vim.fn.fnamemodify(path, ":t") .. "/.."
+end
+
 nvim_tree.setup {
   update_focused_file = {
     enable = true,
-    update_cwd = true,
+    update_root = true,
   },
   renderer = {
-    root_folder_modifier = ":t",
+    root_folder_label = my_root_folder_label,
+    full_name = true,
+    indent_width = 1,
     icons = {
       glyphs = {
         default = "",
@@ -54,8 +60,9 @@ nvim_tree.setup {
     },
   },
   view = {
-    width = 30,
+    width = 35,
     side = "left",
+    -- adaptive_size = true,
     mappings = {
       list = {
         { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
@@ -63,5 +70,8 @@ nvim_tree.setup {
         { key = "v", cb = tree_cb "vsplit" },
       },
     },
+  },
+  git = {
+    ignore = false,
   },
 }
