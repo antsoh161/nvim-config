@@ -9,7 +9,6 @@ local servers = {
 	"yamlls",
   "clangd",
   "rust_analyzer",
-  "neocmake",
 }
 
 local settings = {

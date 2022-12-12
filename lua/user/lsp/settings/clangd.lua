@@ -1,4 +1,6 @@
 return {
-  
+  InlayHints = {
+    Enabled = "Yes"
+  }
   
 }

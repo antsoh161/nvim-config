@@ -14,5 +14,8 @@ return {
         enable = false,
       },
     },
+    hint = {
+      enable = true,
+    },
   },
 }

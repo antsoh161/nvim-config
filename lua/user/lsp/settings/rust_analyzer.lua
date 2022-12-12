@@ -16,7 +16,7 @@ return {
         enable = true
       },
       inlay_hints = {
-        auto = true,
+        auto = false,
         only_current_line = true,
         show_parameter_hints = true,
         parameter_hints_prefix = "",
