@@ -9,6 +9,8 @@ local servers = {
 	"yamlls",
   "clangd",
   "rust_analyzer",
+  "dockerls",
+  "cmake",
 }
 
 local settings = {

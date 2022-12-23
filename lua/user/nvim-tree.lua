@@ -15,6 +15,8 @@ local my_root_folder_label = function(path)
 end
 
 nvim_tree.setup {
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
     update_root = true,
@@ -68,10 +70,14 @@ nvim_tree.setup {
         { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
         { key = "h", cb = tree_cb "close_node" },
         { key = "v", cb = tree_cb "vsplit" },
+        { key = "g", cb = tree_cb "cd" },
       },
     },
   },
   git = {
-    ignore = false,
+    ignore = true,
+  },
+  filters = {
+    dotfiles = true,
   },
 }

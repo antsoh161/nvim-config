@@ -22,6 +22,9 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+-- Toggle hybrid relative line numbers
+-- :set nu for absolute
+keymap("n", "<leader>nn",":set nu rnu!<CR>", opts)
 
 -- Move to first word instead of beginning of line
 keymap("n", "0", "^", opts)
@@ -46,19 +49,23 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 keymap("n", "<S-q>", "<cmd>Bdelete<CR>", opts)
 
 -- Close Window
-keymap("n", "<C-q>", ":close<CR>", opts)
+-- keymap("n", "<C-q>", ":close<CR>", opts)
 --
 -- Better paste
 keymap("v", "p", '"_dP', opts)
 
 -- Insert --
 -- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts)
+-- keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
+
+-- Move lines up and down
+keymap("v", "<C-K>", ":m '<-2<CR>gv=gv", opts)
+keymap("v", "<C-J>", ":m '>+1<CR>gv=gv", opts)
 
 -- Plugins --
 
@@ -83,8 +90,12 @@ keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
--- Git
-keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+
+-- Telescope Git 
+-- TODO: remove this prob
+-- keymap("n", "<leader>fx", ":Telescope git_status<CR>", opts)
+-- keymap("n", "<leader>fc", ":Telescope git_commits<CR>", opts)
+-- keymap("n", "<leader>fv", ":Telescope git_branches<CR>", opts)
 
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
@@ -103,3 +114,34 @@ keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
 -- Lsp
 keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
+
+-- Ask for qutting because i lost like 2 hours of work once
+local function smart_quit()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local modified = vim.api.nvim_buf_get_option(bufnr, "modified")
+  if modified then
+    vim.ui.input({
+      prompt = "You have unsaved changes. Quit anyway? (y/n) ",
+    }, function(input)
+      if input == "y" then
+        vim.cmd "q!"
+      end
+    end)
+  elseif #vim.api.nvim_list_wins() == 1 then
+    vim.ui.input({
+      prompt = "This is the last window. Quit the editor? (y/n)",
+    }, function(input)
+      if input == "y" then
+        vim.cmd "q!"
+      end
+    end)
+  else
+    vim.cmd "q!"
+  end
+end
+
+local function move_down()
+  vim.cmd ":m '>+1<CR>gv=gv"
+end
+
+keymap("n", "<C-q>", smart_quit, opts)
