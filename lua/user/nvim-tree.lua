@@ -14,6 +14,9 @@ local my_root_folder_label = function(path)
           return vim.fn.fnamemodify(path, ":t") .. "/.."
 end
 
+-- Hack for folder icons, will get removed if color scheme is changed
+vim.cmd "highlight NvimTreeFolderIcon guifg=#e0af68"
+
 nvim_tree.setup {
   sync_root_with_cwd = true,
   -- respect_buf_cwd = true,

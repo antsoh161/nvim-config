@@ -99,7 +99,6 @@ keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
-
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
 keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", opts)
@@ -126,7 +125,7 @@ local function smart_quit()
         vim.cmd "q!"
       end
     end)
-  elseif #vim.api.nvim_list_wins() <= 1 then
+  elseif #vim.api.nvim_list_wins() <= 2 then
     vim.ui.input({
       prompt = "This is the last window. Quit the editor? (y/n)",
     }, function(input)
