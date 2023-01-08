@@ -8,8 +8,7 @@ keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 
 -- Modes
---   normal_mode = "n",
---   insert_mode = "i",
+--   normal_mode = "n", insert_mode = "i",
 --   visual_mode = "v",
 --   visual_block_mode = "x",
 --   term_mode = "t",
@@ -127,7 +126,7 @@ local function smart_quit()
         vim.cmd "q!"
       end
     end)
-  elseif #vim.api.nvim_list_wins() == 1 then
+  elseif #vim.api.nvim_list_wins() <= 1 then
     vim.ui.input({
       prompt = "This is the last window. Quit the editor? (y/n)",
     }, function(input)
@@ -139,9 +138,4 @@ local function smart_quit()
     vim.cmd "q!"
   end
 end
-
-local function move_down()
-  vim.cmd ":m '>+1<CR>gv=gv"
-end
-
 keymap("n", "<C-q>", smart_quit, opts)

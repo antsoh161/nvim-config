@@ -22,8 +22,13 @@ M.setup = function()
 		vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 	end
 
+  local format = function(diag)
+    return string.format("%s: %s", diag.source, diag.message)
+  end
+
 	local config = {
-		virtual_text = { true }, -- disable virtual text
+		virtual_text = { format },
+    -- virtual_text = false,
 		signs = {
 			active = signs, -- show signs
 		},

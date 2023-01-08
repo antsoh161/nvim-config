@@ -42,4 +42,4 @@ local inlayhints_config = {
   debug_mode = false,
 }
 
-require("lsp-inlayhints").setup(inlayhints_config)
+-- require("lsp-inlayhints").setup(inlayhints_config)
